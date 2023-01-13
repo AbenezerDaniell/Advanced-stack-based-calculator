@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <vector>
 #include <string>
+#include<limits>
 //we use unordered map to store the presedence values of operators
 #include <unordered_map>
 using namespace std;
@@ -31,9 +32,7 @@ class Stack {
             top = newNode;
             length = 1;
         }
-        Stack() {
-
-        }
+       
 
         void printStack() {
             Node* temp = top;
@@ -169,7 +168,8 @@ float CalculatePostfix(vector<string> & postfix, unordered_map<string, int> &opM
 }
 //convert user decimal input into binary and return it
 void DecimalToBinary(int value) {
-    Stack *myStack = new Stack();
+    Stack *myStack = new Stack(value%2);
+    value /= 2;
     //convert decimal into binary
     while(value != 0) {
         myStack->push(value % 2);
@@ -178,6 +178,7 @@ void DecimalToBinary(int value) {
     cout << endl
          << "Result: ";
     myStack->printStack();
+   
 }
 
 int main()
@@ -194,6 +195,7 @@ int main()
     bool on = true;
     int choice;
     while(on) {
+        
         cout <<endl<<endl<< "STACK CALCULATOR" << endl;
         cout << "**********************" << endl;
         cout << "CHOOSE CALCULATOR MODE:" << endl;
@@ -215,17 +217,19 @@ int main()
             cout <<endl<<"Result:"<< result << endl;
             break;
         }
-        case 2:
+        case 2:{
             cout << "Decimal to Binary coverter"<<endl;
             cout << "Enter decimal value: ";
             int value;
             cin >> value;
             DecimalToBinary(value);
             break;
+        }
         case 0:
-        default:
+        default:{
             on = false;
             break;
+        }
         }
             }
             return 0;
